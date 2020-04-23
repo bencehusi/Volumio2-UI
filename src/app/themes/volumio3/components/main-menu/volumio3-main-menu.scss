@@ -11,6 +11,19 @@
   overflow-y: auto;
   overflow-x: hidden;
 
+  .main-menu-list-container ul.main-menu-list {
+    $main-menu-text-color: false !default;
+    $main-menu-static-button-color: false !default;
+    @if $main-menu-text-color {
+      color: $main-menu-text-color;
+    }
+    a {
+      @if $main-menu-static-button-color {
+        color: $main-menu-static-button-color;
+      }
+    }
+  }
+
   .logo {
     img {
       cursor: pointer;
@@ -76,4 +89,10 @@
 }
 #main-menu::-webkit-scrollbar-thumb:hover {
   background: $theme-primary-color;
+}
+
+span.static-source-icon.ng-scope {
+    vertical-align: middle;
+    left: 2px;
+    float: right;
 }

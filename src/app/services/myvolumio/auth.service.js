@@ -92,10 +92,8 @@ class AuthService {
     this.socketDeferred = this.$q.defer();
     this.socketPromise = this.socketDeferred.promise;
 
-    this.$rootScope.$on('socket:init', () => {
-      this.registerListner();
-      this.socketDeferred.resolve();
-    });
+    this.registerListner();
+    this.socketDeferred.resolve();
 
     this.$rootScope.$on('socket:disconnect', () => {
       this.socketDeferred = this.$q.defer();
@@ -305,7 +303,9 @@ class AuthService {
   }
 
   isUserVerified() {
-    return this.angularFireService.isLoggedAndVerified();
+    return new Promise((resolve, reject) => {resolve(true);});
+    // Overriding user verified
+    //return this.angularFireService.isLoggedAndVerified();
   }
 
   resendEmailVerification() {

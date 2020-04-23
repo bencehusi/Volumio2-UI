@@ -99,6 +99,7 @@ import StaticPageController from './static-pages/static-page.controller';
 import MultiRoomManagerController from './multi-room-manager/multi-room-manager.controller';
 
 import BrowseController from './browse/browse.controller';
+import BrowseMusicController from './browse-music/browse-music.controller';
 import PlaybackController from './playback/playback.controller';
 import PlayQueueController from './play-queue/play-queue.controller';
 
@@ -113,6 +114,7 @@ import SettingsController from './settings/settings.controller';
 
 //Modals
 import ModalPlaylistController from './browse/components/modal/modal-playlist.controller';
+import ModalArtistDetailsController from './browse-music/components/modal/modal-artist-details.controller';
 import ModalWebRadioController from './browse/components/modal/modal-web-radio.controller';
 import ModalPowerOffController from './components/side-menu/elements/modal-power-off.controller';
 import ModalSleepController from './components/side-menu/elements/modal-sleep.controller';
@@ -147,6 +149,8 @@ import MyMusicPluginEnablerController from './plugin/core-plugin/my-music-plugin
 //Core plugin: MyVolumio
 import MyVolumioLoginController from './components/myvolumio/login/myvolumio-login.controller';
 import MyVolumioSignupController from './components/myvolumio/signup/myvolumio-signup.controller';
+import MyVolumioSignupNewController from './components/myvolumio/signup-new/myvolumio-signup-new.controller';
+import MyVolumioPremiumStreamingController from './components/myvolumio/premium-streaming/myvolumio-premium-streaming.controller';
 import MyVolumioProfileController from './components/myvolumio/profile/myvolumio-profile.controller';
 import MyVolumioPlansController from './components/myvolumio/plans/myvolumio-plans.controller';
 import MyVolumioSubscribeController from './components/myvolumio/subscribe/myvolumio-subscribe.controller';
@@ -298,6 +302,7 @@ angular.module('volumio', [
   .component('pluginComponent', new PluginComponent())
 
   .controller('BrowseController', BrowseController)
+  .controller('BrowseMusicController', BrowseMusicController)
   .controller('PlaybackController', PlaybackController)
   .controller('PlayQueueController', PlayQueueController)
 
@@ -305,6 +310,7 @@ angular.module('volumio', [
 
   .controller('ModalController', ModalController)
   .controller('ModalPlaylistController', ModalPlaylistController)
+  .controller('ModalArtistDetailsController', ModalArtistDetailsController)
   .controller('ModalWebRadioController', ModalWebRadioController)
   .controller('ModalPowerOffController', ModalPowerOffController)
   .controller('ModalSleepController', ModalSleepController)
@@ -341,6 +347,8 @@ angular.module('volumio', [
   //MyVolumio
   .controller('MyVolumioLoginController', MyVolumioLoginController)
   .controller('MyVolumioSignupController', MyVolumioSignupController)
+  .controller('MyVolumioSignupNewController', MyVolumioSignupNewController)
+  .controller('MyVolumioPremiumStreamingController', MyVolumioPremiumStreamingController)
   .controller('MyVolumioProfileController', MyVolumioProfileController)
   .controller('MyVolumioPlansController', MyVolumioPlansController)
   .controller('MyVolumioSubscribeController', MyVolumioSubscribeController)

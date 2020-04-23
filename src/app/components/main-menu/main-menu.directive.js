@@ -16,7 +16,7 @@ class MainMenuDirective {
 }
 
 class MainMenuController {
-  constructor($rootScope, $state, $scope, $location, $window, socketService, browseService, themeManager, $log, modalService) {
+  constructor($rootScope, $state, $scope, $location, $window, socketService, authService, browseService, themeManager, $log, modalService) {
     'ngInject';
     this.$state = $state;
     this.$rootScope = $rootScope;
@@ -31,12 +31,17 @@ class MainMenuController {
     this.modalService = modalService;
 
     this.socketService = socketService;
+    this.authService = authService;
     this.menuItems = [];
     this.menuItemsMainMenuLinks = [];
 
     this.browseService = browseService;
 
     this.sources = [];
+
+    this.premiumEnabled = false;
+    
+    this.user = null;
 
     this.init();
     $rootScope.$on('socket:init', () => {
@@ -55,6 +60,7 @@ class MainMenuController {
     this.registerListner();
     this.initService();
     this.initMenuListSource();
+    this.authInit();
   }
 
   goTo(source) {
@@ -89,9 +95,22 @@ class MainMenuController {
     this.socketService.emit('getMenuItems');
   }
 
+  authInit() {
+    this.$scope.$watch(() => this.authService.user, (user) => {
+      this.user = user;
+    });
+  }
+
   initMenuListSource() {
     this.$scope.$watch( () => this.browseService.sources , (sourcesData) => {
       this.sources = sourcesData;
+      if (sourcesData) {
+        sourcesData.map(s => {
+          if (['qobuz://', 'tidal://'].indexOf(s.uri) > -1) {
+            this.premiumEnabled = true;
+          }
+        });
+      }
     }, true);
   }
 
@@ -115,7 +134,7 @@ class MainMenuController {
   }
 
   isMenuLink(data) {
-    if (data.id === 'link' || data.id === 'plugin-manager') {
+    if (data.id === 'link' || data.id === 'plugin-manager' || data.id === 'shutdown') {
       return true;
     } else {
       return false;
@@ -124,7 +143,7 @@ class MainMenuController {
 
   menuItemsMainMenuLinksClick(item) {
     this.$log.debug(item);
-    if (item.id === 'modal') {
+    if (item.id === 'modal' || item.id === 'shutdown') {
       let controllerName = item.params.modalName.split('-').map(
       (item) => {
         return item[0].toUpperCase() + item.slice(1, item.length);
@@ -155,6 +174,9 @@ class MainMenuController {
           this.$state.go(item.state);
         }
       }
+    menuItemsMyVolumioLinksClick(service) {
+      this.$state.go('myvolumio.premiumStreaming', { serviceName: service });
+    }
 }
 
 export default MainMenuDirective;
